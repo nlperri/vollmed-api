@@ -7,7 +7,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import med.voll.api.address.AddressDTO;
 
-public record CreateDoctorDTO(
+public record DoctorDTO(
 
         @NotBlank
         String nome,
@@ -15,6 +15,9 @@ public record CreateDoctorDTO(
         @NotBlank
         @Email
         String email,
+
+        @NotBlank
+        String telefone,
 
         @NotBlank
         @Pattern(regexp = "\\d{4,6}")
