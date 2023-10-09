@@ -28,7 +28,7 @@ public class Doctor {
     @Embedded
     private Address endereco;
 
-    public Doctor(DoctorDTO data) {
+    public Doctor(CreateDoctorDTO data) {
         this.nome = data.nome();
         this.email = data.email();
         this.telefone = data.telefone();
