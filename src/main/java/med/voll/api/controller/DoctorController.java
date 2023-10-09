@@ -6,6 +6,9 @@ import med.voll.api.doctor.Doctor;
 import med.voll.api.doctor.DoctorRepository;
 import med.voll.api.doctor.FetchDoctorsDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,7 +28,7 @@ public class DoctorController {
     }
 
     @GetMapping
-    public List<FetchDoctorsDTO> fetch() {
-        return repository.findAll().stream().map(FetchDoctorsDTO::new).toList();
+    public Page<FetchDoctorsDTO> fetch(@PageableDefault(size = 10, sort = {"nome"}) Pageable pagination) {
+        return repository.findAll(pagination).map(FetchDoctorsDTO::new);
     }
 }
