@@ -26,7 +26,7 @@ public class Patient {
     @Embedded
     private Address endereco;
 
-    public Patient(PatientDTO data) {
+    public Patient(CreatePatientDTO data) {
         this.nome = data.nome();
         this.email = data.email();
         this.cpf = data.cpf();
