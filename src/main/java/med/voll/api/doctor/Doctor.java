@@ -36,4 +36,10 @@ public class Doctor {
         this.especialidade = data.especialidade();
         this.endereco = new Address(data.endereco());
     }
+
+    public void update(UpdateDoctorDTO data) {
+        this.nome = data.nome() != null ? data.nome() : this.nome;
+        this.telefone = data.telefone() != null ? data.telefone() : this.telefone;
+        this.endereco = data.endereco() != null ? this.endereco.update(data.endereco()) : this.endereco;
+    }
 }

@@ -27,4 +27,16 @@ public class Address {
         this.cidade = data.cidade();
         this.uf = data.uf();
     }
+
+    public Address update(AddressDTO data) {
+        return new Address(
+                data.logradouro() != null ? data.logradouro() : this.logradouro,
+                data.bairro() != null ? data.bairro() : this.bairro,
+                data.cep() != null ? data.cep() : this.cep,
+                data.numero() != null ? data.numero() : this.numero,
+                data.complemento() != null ? data.complemento() : this.complemento,
+                data.cidade() != null ? data.cidade() : this.cidade,
+                data.uf() != null ? data.uf() : this.uf
+        );
+    }
 }
