@@ -1,8 +1,7 @@
-package med.voll.api.patient;
+package med.voll.api.domain.patient;
 
 import jakarta.validation.Valid;
-import med.voll.api.patient.*;
-import org.apache.coyote.Response;
+import med.voll.api.domain.patient.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
