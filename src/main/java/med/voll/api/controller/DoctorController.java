@@ -26,7 +26,7 @@ public class DoctorController {
 
     @GetMapping
     public Page<FetchDoctorsDTO> fetch(@PageableDefault(size = 10, sort = {"nome"}) Pageable pagination) {
-        return repository.findAll(pagination).map(FetchDoctorsDTO::new);
+        return repository.findAllByAtivoTrue(pagination).map(FetchDoctorsDTO::new);
     }
 
     @PutMapping
@@ -34,5 +34,12 @@ public class DoctorController {
     public void update(@RequestBody @Valid UpdateDoctorDTO data) {
         var doctor = repository.getReferenceById(data.id());
         doctor.update(data);
+    }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public void delete(@PathVariable Long id) {
+        var doctor = repository.getReferenceById(id);
+        doctor.delete();
     }
 }
