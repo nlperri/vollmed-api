@@ -2,12 +2,16 @@ package med.voll.api.doctor;
 
 import jakarta.validation.Valid;
 import med.voll.api.doctor.*;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 
@@ -20,26 +24,41 @@ public class DoctorController {
 
     @PostMapping
     @Transactional
-    public void create(@RequestBody @Valid CreateDoctorDTO data) {
-        repository.save(new Doctor(data));
+    public ResponseEntity<DoctorDetailsDTO> create(
+            @RequestBody @Valid CreateDoctorDTO data,
+            UriComponentsBuilder uriBuilder
+    ) {
+        var doctor = new Doctor(data);
+
+        repository.save(doctor);
+
+        var uri = uriBuilder.path("/doctors/{id}").buildAndExpand(doctor.getId()).toUri();
+
+        return ResponseEntity.created(uri).body(new DoctorDetailsDTO(doctor));
     }
 
     @GetMapping
-    public Page<FetchDoctorsDTO> fetch(@PageableDefault(size = 10, sort = {"nome"}) Pageable pagination) {
-        return repository.findAllByAtivoTrue(pagination).map(FetchDoctorsDTO::new);
+    public ResponseEntity<Page<FetchDoctorsDTO>> fetch(@PageableDefault(size = 10, sort = {"nome"}) Pageable pagination) {
+        var doctors = repository.findAllByAtivoTrue(pagination).map(FetchDoctorsDTO::new);
+
+        return ResponseEntity.ok(doctors);
     }
 
     @PutMapping
     @Transactional
-    public void update(@RequestBody @Valid UpdateDoctorDTO data) {
+    public ResponseEntity<DoctorDetailsDTO> update(@RequestBody @Valid UpdateDoctorDTO data) {
         var doctor = repository.getReferenceById(data.id());
         doctor.update(data);
+
+        return ResponseEntity.ok(new DoctorDetailsDTO(doctor));
     }
 
     @DeleteMapping("/{id}")
     @Transactional
-    public void delete(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         var doctor = repository.getReferenceById(id);
         doctor.delete();
+
+        return ResponseEntity.noContent().build();
     }
 }
