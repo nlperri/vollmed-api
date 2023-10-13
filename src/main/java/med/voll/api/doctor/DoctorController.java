@@ -44,6 +44,13 @@ public class DoctorController {
         return ResponseEntity.ok(doctors);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<DoctorDetailsDTO> getById(@PathVariable Long id) {
+        var doctor = repository.getReferenceById(id);
+
+        return ResponseEntity.ok(new DoctorDetailsDTO(doctor));
+    }
+
     @PutMapping
     @Transactional
     public ResponseEntity<DoctorDetailsDTO> update(@RequestBody @Valid UpdateDoctorDTO data) {
@@ -61,4 +68,6 @@ public class DoctorController {
 
         return ResponseEntity.noContent().build();
     }
+
+
 }
