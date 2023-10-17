@@ -1,6 +1,8 @@
 package med.voll.api.domain.user;
 
 import jakarta.validation.Valid;
+import med.voll.api.infra.security.JWTTokenDTO;
+import med.voll.api.infra.security.TokenService;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,11 +20,15 @@ public class AuthenticationController {
     @Autowired
     private AuthenticationManager manager;
 
+    @Autowired
+    private TokenService tokenService;
+
     @PostMapping
     public ResponseEntity<?> login(@RequestBody @Valid AuthenticationDTO data) {
-        var token = new UsernamePasswordAuthenticationToken(data.login(), data.senha());
-        var authentication = manager.authenticate(token);
+        var authenticationToken = new UsernamePasswordAuthenticationToken(data.login(), data.senha());
+        var authentication = manager.authenticate(authenticationToken);
+        var tokenJWT = tokenService.generateToken((User) authentication.getPrincipal());
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok().body(new JWTTokenDTO(tokenJWT));
     }
 }
