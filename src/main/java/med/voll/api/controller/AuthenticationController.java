@@ -1,6 +1,8 @@
-package med.voll.api.domain.user;
+package med.voll.api.controller;
 
 import jakarta.validation.Valid;
+import med.voll.api.domain.user.AuthenticationDTO;
+import med.voll.api.domain.user.User;
 import med.voll.api.infra.security.JWTTokenDTO;
 import med.voll.api.infra.security.TokenService;
 import org.apache.coyote.Response;
