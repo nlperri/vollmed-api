@@ -18,31 +18,31 @@ public class Patient {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nome;
+    private String name;
     private String email;
     private String cpf;
-    private String telefone;
-    private Boolean ativo;
+    private String phone;
+    private Boolean active;
 
     @Embedded
-    private Address endereco;
+    private Address address;
 
     public Patient(CreatePatientDTO data) {
-        this.nome = data.nome();
+        this.name = data.name();
         this.email = data.email();
         this.cpf = data.cpf();
-        this.telefone = data.telefone();
-        this.endereco = new Address(data.endereco());
-        this.ativo = true;
+        this.phone = data.phone();
+        this.address = new Address(data.address());
+        this.active = true;
     }
 
     public void update(UpdatePatientDTO data) {
-        this.nome = data.nome() != null ? data.nome() : this.nome;
-        this.telefone = data.telefone() != null ? data.telefone() : this.telefone;
-        this.endereco = data.endereco() != null ? this.endereco.update(data.endereco()) : this.endereco;
+        this.name = data.name() != null ? data.name() : this.name;
+        this.phone = data.phone() != null ? data.phone() : this.phone;
+        this.address = data.address() != null ? this.address.update(data.address()) : this.address;
     }
 
     public void delete() {
-        this.ativo = false;
+        this.active = false;
     }
 }

@@ -10,14 +10,14 @@ import med.voll.api.domain.address.AddressDTO;
 public record CreatePatientDTO(
 
         @NotBlank
-        String nome,
+        String name,
 
         @NotBlank
         @Email
         String email,
 
         @NotBlank
-        String telefone,
+        String phone,
 
         @NotBlank
         @Pattern(regexp = "\\d{3}\\.?\\d{3}\\.?\\d{3}\\-?\\d{2}")
@@ -25,7 +25,7 @@ public record CreatePatientDTO(
 
         @NotNull
         @Valid
-        AddressDTO endereco
+        AddressDTO address
 ) {
 
 }

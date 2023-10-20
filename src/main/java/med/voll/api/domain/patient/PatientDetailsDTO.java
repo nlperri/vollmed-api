@@ -3,13 +3,13 @@ package med.voll.api.domain.patient;
 import med.voll.api.domain.address.Address;
 
 public record PatientDetailsDTO(
-        String nome,
+        String name,
         String email,
-        String telefone,
+        String phone,
         String cpf,
-        Address endereco
+        Address address
 ) {
     public PatientDetailsDTO(Patient patient) {
-        this(patient.getNome(), patient.getEmail(), patient.getTelefone(), patient.getCpf(), patient.getEndereco());
+        this(patient.getName(), patient.getEmail(), patient.getPhone(), patient.getCpf(), patient.getAddress());
     }
 }

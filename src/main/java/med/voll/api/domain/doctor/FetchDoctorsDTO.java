@@ -2,13 +2,13 @@ package med.voll.api.domain.doctor;
 
 public record FetchDoctorsDTO (
   Long id,
-  String nome,
+  String name,
   String email,
   String crm,
-  Specialty especialidade
+  Specialty specialty
 ){
     public FetchDoctorsDTO(Doctor doctor) {
-        this(doctor.getId(), doctor.getNome(), doctor.getEmail(), doctor.getCrm(), doctor.getEspecialidade());
+        this(doctor.getId(), doctor.getName(), doctor.getEmail(), doctor.getCrm(), doctor.getSpecialty());
     }
 
 }

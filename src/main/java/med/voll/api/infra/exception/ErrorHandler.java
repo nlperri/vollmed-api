@@ -29,27 +29,27 @@ public class ErrorHandler {
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
-    public ResponseEntity<String> tratarErro400(HttpMessageNotReadableException ex) {
+    public ResponseEntity<String> handleError400(HttpMessageNotReadableException ex) {
         return ResponseEntity.badRequest().body(ex.getMessage());
     }
 
     @ExceptionHandler(BadCredentialsException.class)
-    public ResponseEntity<String> tratarErroBadCredentials() {
+    public ResponseEntity<String> handleErrorBadCredentials() {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciais inválidas");
     }
 
     @ExceptionHandler(AuthenticationException.class)
-    public ResponseEntity<String> tratarErroAuthentication() {
+    public ResponseEntity<String> handleErrorAuthentication() {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Falha na autenticação");
     }
 
     @ExceptionHandler(AccessDeniedException.class)
-    public ResponseEntity<String> tratarErroAcessoNegado() {
+    public ResponseEntity<String> handleErrorAccessDenied() {
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Acesso negado");
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<String> tratarErro500(Exception ex) {
+    public ResponseEntity<String> handleError500(Exception ex) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro: " +ex.getLocalizedMessage());
     }
     public record ErrorValidationDTO(String field, String message) {

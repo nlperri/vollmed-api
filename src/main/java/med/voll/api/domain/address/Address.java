@@ -10,32 +10,32 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Address {
-    private String logradouro;
-    private String bairro;
+    private String place;
+    private String neighborhood;
     private String cep;
-    private String numero;
-    private String complemento;
-    private String cidade;
+    private String number;
+    private String complement;
+    private String city;
     private String uf;
 
     public Address(AddressDTO data) {
-        this.logradouro = data.logradouro();
-        this.bairro = data.bairro();
+        this.place = data.place();
+        this.neighborhood = data.neighborhood();
         this.cep = data.cep();
-        this.numero = data.numero();
-        this.complemento = data.complemento();
-        this.cidade = data.cidade();
+        this.number = data.number();
+        this.complement = data.complement();
+        this.city = data.city();
         this.uf = data.uf();
     }
 
     public Address update(AddressDTO data) {
         return new Address(
-                data.logradouro() != null ? data.logradouro() : this.logradouro,
-                data.bairro() != null ? data.bairro() : this.bairro,
+                data.place() != null ? data.place() : this.place,
+                data.neighborhood() != null ? data.neighborhood() : this.neighborhood,
                 data.cep() != null ? data.cep() : this.cep,
-                data.numero() != null ? data.numero() : this.numero,
-                data.complemento() != null ? data.complemento() : this.complemento,
-                data.cidade() != null ? data.cidade() : this.cidade,
+                data.number() != null ? data.number() : this.number,
+                data.complement() != null ? data.complement() : this.complement,
+                data.city() != null ? data.city() : this.city,
                 data.uf() != null ? data.uf() : this.uf
         );
     }

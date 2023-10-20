@@ -10,24 +10,24 @@ import med.voll.api.domain.address.AddressDTO;
 public record CreateDoctorDTO(
 
         @NotBlank
-        String nome,
+        String name,
 
         @NotBlank
         @Email
         String email,
 
         @NotBlank
-        String telefone,
+        String phone,
 
         @NotBlank
         @Pattern(regexp = "\\d{4,6}")
         String crm,
 
         @NotNull
-        Specialty especialidade,
+        Specialty specialty,
 
         @NotNull
         @Valid
-        AddressDTO endereco)
+        AddressDTO address)
 {
 }

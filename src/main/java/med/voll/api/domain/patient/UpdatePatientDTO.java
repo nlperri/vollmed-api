@@ -5,8 +5,8 @@ import med.voll.api.domain.address.AddressDTO;
 
 public record UpdatePatientDTO(
         Long id,
-        String nome,
-        String telefone,
-        @Valid AddressDTO endereco
+        String name,
+        String phone,
+        @Valid AddressDTO address
         ) {
 }
