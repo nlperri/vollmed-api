@@ -1,11 +1,14 @@
 package med.voll.api.domain.appointment;
 
+import med.voll.api.domain.appointment.validations.ScheduleAppointmentValidator;
 import med.voll.api.domain.doctor.Doctor;
 import med.voll.api.domain.doctor.DoctorRepository;
 import med.voll.api.domain._errors.ValidationCheckException;
 import med.voll.api.domain.patient.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class ScheduleAppointmentService {
@@ -19,6 +22,9 @@ public class ScheduleAppointmentService {
     @Autowired
     private PatientRepository patientRepository;
 
+    @Autowired
+    private List<ScheduleAppointmentValidator> validators;
+
     public void execute(ScheduleAppointmentDTO data) {
 
         if (!patientRepository.existsById(data.patientId())) {
@@ -28,6 +34,8 @@ public class ScheduleAppointmentService {
         if (data.doctorId() != null && !doctorRepository.existsById(data.doctorId())) {
             throw new ValidationCheckException("Id do médico informado não existe.");
         }
+
+        validators.forEach(v -> v.validate(data));
 
         var patient = patientRepository.getReferenceById(data.patientId());
         var doctor = chooseDoctor(data);
