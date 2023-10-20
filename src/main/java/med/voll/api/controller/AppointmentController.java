@@ -1,17 +1,12 @@
 package med.voll.api.controller;
 
 import jakarta.validation.Valid;
-import med.voll.api.domain.appointment.AppointmentDetailsDTO;
-import med.voll.api.domain.appointment.AppointmentRepository;
-import med.voll.api.domain.appointment.ScheduleAppointmentDTO;
-import med.voll.api.domain.appointment.ScheduleAppointmentService;
+import med.voll.api.domain.appointment.*;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("appointments")
@@ -27,5 +22,12 @@ public class AppointmentController {
         scheduleAppointmentService.execute(data);
 
         return ResponseEntity.ok(new AppointmentDetailsDTO(null, null, null, null));
+    }
+
+    @DeleteMapping
+    @Transactional
+    public ResponseEntity<Void> cancel(@RequestBody @Valid CancelAppointmentDTO data) {
+        scheduleAppointmentService.cancel(data);
+        return ResponseEntity.noContent().build();
     }
 }
