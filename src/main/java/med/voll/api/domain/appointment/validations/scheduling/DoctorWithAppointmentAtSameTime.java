@@ -1,4 +1,4 @@
-package med.voll.api.domain.appointment.validations;
+package med.voll.api.domain.appointment.validations.scheduling;
 
 import med.voll.api.domain._errors.ValidationCheckException;
 import med.voll.api.domain.appointment.AppointmentRepository;
@@ -13,7 +13,7 @@ public class DoctorWithAppointmentAtSameTime implements ScheduleAppointmentValid
     private AppointmentRepository repository;
 
     public void validate(ScheduleAppointmentDTO data) {
-        var doctorHasAnotherAppointmentAtTheSameTime = repository.existsByDoctorIdAndDate(data.doctorId(), data.date());
+        var doctorHasAnotherAppointmentAtTheSameTime = repository.existsByDoctorIdAndDateAndReasonCancellationIsNull(data.doctorId(), data.date());
 
         if(doctorHasAnotherAppointmentAtTheSameTime) {
             throw new ValidationCheckException("Médico já possui outra consulta agendada nesse mesmo horário.");

@@ -1,6 +1,7 @@
 package med.voll.api.domain.appointment;
 
-import med.voll.api.domain.appointment.validations.ScheduleAppointmentValidator;
+import med.voll.api.domain.appointment.validations.cancellation.CancelAppointmentValidator;
+import med.voll.api.domain.appointment.validations.scheduling.ScheduleAppointmentValidator;
 import med.voll.api.domain.doctor.Doctor;
 import med.voll.api.domain.doctor.DoctorRepository;
 import med.voll.api.domain._errors.ValidationCheckException;
@@ -24,6 +25,8 @@ public class ScheduleAppointmentService {
 
     @Autowired
     private List<ScheduleAppointmentValidator> validators;
+
+    private List<CancelAppointmentValidator> cancelValidators;
 
     public AppointmentDetailsDTO execute(ScheduleAppointmentDTO data) {
 
@@ -66,6 +69,8 @@ public class ScheduleAppointmentService {
         if (!appointmentRepository.existsById(data.appointmentId())) {
             throw new ValidationCheckException("Id da consulta informado não existe.");
         }
+
+        cancelValidators.forEach(v -> v.validate(data));
 
         var appointment = appointmentRepository.getReferenceById(data.appointmentId());
         appointment.cancel(data.reason());
