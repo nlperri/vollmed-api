@@ -19,9 +19,9 @@ public class AppointmentController {
     @Transactional
     public ResponseEntity<AppointmentDetailsDTO> schedule(@RequestBody @Valid ScheduleAppointmentDTO data) {
 
-        scheduleAppointmentService.execute(data);
+        var appointmentResponse = scheduleAppointmentService.execute(data);
 
-        return ResponseEntity.ok(new AppointmentDetailsDTO(null, null, null, null));
+        return ResponseEntity.ok(appointmentResponse);
     }
 
     @DeleteMapping
