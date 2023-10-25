@@ -36,6 +36,12 @@ public class Appointment {
     @Enumerated(EnumType.STRING)
     private ReasonForCancellation reasonCancellation;
 
+    public Appointment(Object id, Doctor doctor, Patient patient, LocalDateTime date) {
+        this.doctor = doctor;
+        this.patient = patient;
+        this.date = date;
+    }
+
     public void cancel(ReasonForCancellation reason) {
         this.reasonCancellation = reason;
     }
