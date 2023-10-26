@@ -18,8 +18,7 @@ services:
     build: ./
     restart: on-failure
     env_file:
-        - ./.env
-        - .env.${DOCKER_ENV:-dev}
+        - ./.env.${DOCKER_ENV:dev}
     ports:
       - $SPRING_LOCAL_PORT:$SPRING_DOCKER_PORT
     environment:
