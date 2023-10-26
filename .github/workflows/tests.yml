@@ -19,7 +19,7 @@ jobs:
       run: docker-compose up -d
 
     - name: Run Tests
-      run: docker-compose run --rm app mvn test -B
+      run: docker-compose run --rm -e DOCKER_ENV=${DOCKER_ENV} app mvn test -B
 
     - name: Tear down Docker Compose
       run: docker-compose down
